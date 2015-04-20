@@ -25,4 +25,6 @@ def read_input(filename):
 
 
 if __name__ == '__main__':
-	pass
+    num_machines, jobs = read_input("input.txt")
+    scheduler = Scheduler(num_machines, jobs)
+    scheduler.schedule()
