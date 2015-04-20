@@ -24,7 +24,7 @@ def read_input(filename):
         job = line.split()
         job = (int(job[0]), int(job[1]))
         jobs.append(job)
-        return (machines, jobs)
+    return (machines, jobs)
 
 
 if __name__ == '__main__':
