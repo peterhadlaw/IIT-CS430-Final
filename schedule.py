@@ -3,7 +3,8 @@
 class Scheduler(object):
 
     def __init__(self, num_machines, jobs):
-        return
+        self.num_machines = num_machines
+        self.jobs = jobs
 
     def schedule(self):
         pass
