@@ -6,7 +6,7 @@ from collections import defaultdict
 class Scheduler(object):
 
     def __init__(self, num_machines, jobs):
-        self.num_machines = num_machines
+        self.machines = [[] for x in range(num_machines)]
         self.jobs = jobs
         # self.m = job collision matrix / graph
         self.m = defaultdict(lambda: defaultdict(lambda: False))
@@ -18,8 +18,24 @@ class Scheduler(object):
                 if j2_start < j1_end and j2_end > j1_start:
                     self.m[jid1][jid2] = True  # Yes, there was a collision
 
+    def find_machine(self, jid):
+        for machine in self.machines:
+            if machine == []:
+                machine.append(jid)
+                return
+            for scheduled_jid in machine:
+                if self.m[jid][scheduled_jid] is False:
+                    machine.append(jid)
+                    return
+        return
+
     def schedule(self):
-        pass
+        # Sort collision matrix based on number of collisions
+        sorted_m = sorted(self.m.items(), key=lambda x: len(x[1]))
+        # Go through every job, attempt to insert it into the machines,
+        # starting with previously occupied machines first
+        for jid, collisions in sorted_m:
+            self.find_machine(jid)
 
 
 def read_input(filename):
