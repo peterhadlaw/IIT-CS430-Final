@@ -17,8 +17,8 @@ def read_input(filename):
     and a list of tuples containing job start and end times.
 
     Arguments:
-        filename - Path to input file. First line is the number of machines, all
-                subsequent lines are jobs "JOB_START_TIME JOB_END_TIME".
+        filename - Path to input file. First line is the number of machines,
+                all subsequent lines are jobs "JOB_START_TIME JOB_END_TIME".
 
                 Example:
 
