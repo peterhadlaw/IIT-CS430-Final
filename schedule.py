@@ -20,6 +20,14 @@ class Scheduler(object):
                     self.m[jid1][jid2] = True  # Yes, there was a collision
 
     def find_machine(self, jid):
+        """
+        Search all machines for a place to put the job without it colliding
+        with another. Prefer to fill up an already in use machine over an empty
+        one for the optimal solution.
+
+        If a job cannot find a machine that can accept it, it is a lost job and
+        should be put into the list of not_processed.
+        """
         for machine in self.machines:
             if machine == []:
                 machine.append(jid)
@@ -36,14 +44,28 @@ class Scheduler(object):
         return
 
     def schedule(self):
-        # Sort collision matrix based on number of collisions
+        """
+        Schedule the jobs; get the jobs in order so to be passed into the
+        find_machine function.
+
+        Sort the collision matrix in increasing number of collisions.
+        See proof as to why this will result in the optimal solution.
+        """
         sorted_m = sorted(self.m.items(), key=lambda x: len(x[1]))
-        # Go through every job, attempt to insert it into the machines,
-        # starting with previously occupied machines first
         for jid, collisions in sorted_m:
             self.find_machine(jid)
 
     def print_schedule(self):
+        """
+        Go through every machine, which lists the jobs assigned to it.
+        Count all jobs that have been assigned to any machines to and
+        print the each machine's jobs.
+
+        Then print out all jobs that have not been assigned, thus have failed
+        to be processed.
+
+        Finally print the number of jobs processed out of the total submitted.
+        """
         count = 0
         for i, machine in enumerate(self.machines):
             print "Machine #" + str(i) + " has jobs: "
