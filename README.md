@@ -1,5 +1,7 @@
 # IIT-CS430-Final
 
+by Henry Winn & Peter Hadlaw
+
 Sample input data found in `input.txt`.
 Sample output data (the result of using the provided `input.txt`) is found
 in `output.txt`.
