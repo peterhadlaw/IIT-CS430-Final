@@ -7,6 +7,7 @@ class Scheduler(object):
 
     def __init__(self, num_machines, jobs):
         self.machines = [[] for x in range(num_machines)]
+        self.not_processed = []
         self.jobs = jobs
         # self.m = job collision matrix / graph
         self.m = defaultdict(lambda: defaultdict(lambda: False))
@@ -23,10 +24,15 @@ class Scheduler(object):
             if machine == []:
                 machine.append(jid)
                 return
+            conflict_found = False
             for scheduled_jid in machine:
-                if self.m[jid][scheduled_jid] is False:
-                    machine.append(jid)
-                    return
+                if self.m[jid][scheduled_jid] is True:
+                    conflict_found = True
+                    break
+            if conflict_found is False:
+                machine.append(jid)
+                return
+        self.not_processed.append(jid)
         return
 
     def schedule(self):
