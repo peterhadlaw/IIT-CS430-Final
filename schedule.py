@@ -37,6 +37,16 @@ class Scheduler(object):
         for jid, collisions in sorted_m:
             self.find_machine(jid)
 
+    def print_schedule(self):
+        count = 0
+        for i, machine in enumerate(self.machines):
+            print "Machine #" + str(i) + " has jobs: "
+            for jid in machine:
+                count += 1
+                print str(self.jobs[jid])
+        print str(count) + " number of jobs out of a possible " + \
+            str(len(self.jobs)) + " total submitted."
+
 
 def read_input(filename):
     """
@@ -76,3 +86,4 @@ if __name__ == '__main__':
     num_machines, jobs = read_input("jobs.txt")
     scheduler = Scheduler(num_machines, jobs)
     scheduler.schedule()
+    scheduler.print_schedule()
