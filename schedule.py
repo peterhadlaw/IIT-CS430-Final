@@ -1,10 +1,22 @@
 
 
+from collections import defaultdict
+
+
 class Scheduler(object):
 
     def __init__(self, num_machines, jobs):
         self.num_machines = num_machines
         self.jobs = jobs
+        # self.m = job collision matrix / graph
+        self.m = defaultdict(lambda: defaultdict(lambda: False))
+        for jid1, job1 in enumerate(jobs):
+            for jid2, job2 in enumerate(jobs):
+                # Check if there was a collision
+                j1_start, j1_end = job1
+                j2_start, j2_end = job2
+                if j2_start < j1_end and j2_end > j1_start:
+                    self.m[jid1][jid2] = True  # Yes, there was a collision
 
     def schedule(self):
         pass
