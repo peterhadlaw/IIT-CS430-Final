@@ -50,6 +50,10 @@ class Scheduler(object):
             for jid in machine:
                 count += 1
                 print str(self.jobs[jid])
+        if self.not_processed != []:
+            print "Jobs not processed: "
+            for jid in self.not_processed:
+                print str(self.jobs[jid])
         print str(count) + " number of jobs out of a possible " + \
             str(len(self.jobs)) + " total submitted."
 
